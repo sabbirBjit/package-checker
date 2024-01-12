@@ -1,81 +1,22 @@
-import { Box, Button, Typography } from "@mui/material";
-import { IoMdCloudUpload } from "react-icons/io";
-import { BsFiletypeJson } from "react-icons/bs";
+import { Routes, Route, Navigate } from 'react-router-dom'
 
-import DependencyTable from "./components/DependencyTable";
-import useFileHandler from "./hooks/useFileHandler";
-import LinearProgressWithLabel from "./components/LinearProgressWithLabel";
+import JSONChecker from "./pages/JSONChecker";
+import SVGViewer from './pages/SVGViewer';
+import SimpleHeader from './components/SimpleHeader';
 
 function App() {
-  const {
-    file,
-    pkgDepData,
-    isLoading,
-    handleChange,
-    handleCheckDependencies,
-    apiProgress,
-  } = useFileHandler();
 
   return (
-    <Box sx={{ maxWidth: "1200px", margin: "0 auto" }}>
-      {!file ? (
-        <Box
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="center"
-          height="100vh"
-          gap={2}
-        >
-          <BsFiletypeJson size={60} />
-          <Button
-            component="label"
-            variant="contained"
-            startIcon={<IoMdCloudUpload />}
-          >
-            Upload JSON file
-            <input
-              type="file"
-              accept=".json"
-              onChange={handleChange}
-              style={{ display: "none" }}
-            />
-          </Button>
-        </Box>
-      ) : (
-        <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: 2,
-        }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-            }}
-          >  
-          <BsFiletypeJson size={30} />
-            <Typography variant="h5" gutterBottom>
-              {file.name}
-            </Typography>
-          </Box>
-          <Button 
-          disabled={isLoading || apiProgress>=100 } 
-          variant="contained" onClick={handleCheckDependencies}>
-            Check dependencies
-          </Button>
-
-          <LinearProgressWithLabel value={apiProgress} />
-          {pkgDepData && (
-            <DependencyTable dependencies={pkgDepData} isLoading={isLoading} />
-          )}
-        </Box>
-      )}
-    </Box>
+    <div>
+      <SimpleHeader/>
+      <Routes>
+        <Route path="/" element={<Navigate to="/json-checker" />} />
+        <Route path="/json-checker" element={<JSONChecker/>} />
+        <Route path="/svg-viewer" element={<SVGViewer/>} />
+      </Routes>
+      {/* <JSONChecker/>
+      <SVGViewer/> */}
+    </div>
   );
 }
 
