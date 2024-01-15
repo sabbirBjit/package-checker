@@ -6,13 +6,17 @@ import { NavLink } from "react-router-dom";
 const SimpleHeader: React.FC = () => {
   const navigationData = [
     {
+      name: "Test",
+      path: "/test",
+    },
+    {
       name: "JSON Checker",
       path: "/json-checker",
     },
     {
       name: "SVG Viewer",
       path: "/svg-viewer",
-    },
+    }
   ];
   return (
     <div>

@@ -53,6 +53,7 @@ const SVGViewer: React.FC = () => {
             Upload SVG files
             <input
               type="file"
+              accept="image/svg+xml"
               multiple
               onChange={(e) => {
                 const selectedFiles = e.target.files;
